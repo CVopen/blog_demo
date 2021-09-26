@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      height: 100px;
+      position: relative;
+    }
+
+    .circular {
+      margin: 0 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      background-color: green;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container::after {
+      position: absolute;
+      content: "";
+      height: 65px;
+      width: 1px;
+      background-color: red;
+      top: 32px;
+      left: 25px;
+    }
+
+    .left {
+      flex: 1;
+    }
+
+    .right {
+      padding-right: 20px;
+    }
+
+    .title {
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="circular">1</div>
+    <div class="left">
+      <p class="title">王永利(18213833190)</p>
+      <p style="color: green;">已同意</p>
+    </div>
+    <div class="right">17.38</div>
+  </div>
+  <div class="container">
+    <div class="circular">2</div>
+    <div class="left">
+      <p>王永利(18213833190)</p>
+      <p style="color: green;">已同意</p>
+    </div>
+    <div class="right">17.38</div>
+  </div>
+  <div class="container">
+    <div class="circular">3</div>
+    <div class="left">
+      <p>王永利(18213833190)</p>
+      <p style="color: green;">已同意</p>
+    </div>
+    <div class="right">17.38</div>
+  </div>
+</body>
+
+</html>
