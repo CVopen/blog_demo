@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // class Singleton {
+    //   constructor(name) {
+    //     this.name = name
+    //   }
+    //   static getInstance = function (name) {
+    //     if (!this.instance) {
+    //       this.instance = new Singleton(name)
+    //     }
+    //     return this.instance
+    //   }
+    // }
+
+    // const tom = Singleton.getInstance('tom')
+    // const Bob = Singleton.getInstance('Bob')
+    // console.log(tom === Bob)
+    class Singleton {
+      constructor(name) {
+        if (Singleton.instance) {
+          return Singleton.instance
+        }
+        this.name = name
+        Singleton.instance = this
+      }
+      // static getInstance = function (name) {
+      //   if (!this.instance) {
+      //     this.instance = new Singleton(name)
+      //   }
+      //   return this.instance
+      // }
+    }
+
+    const tom = new Singleton('tom')
+    const Bob = new Singleton('Bob')
+    console.log(tom === Bob)
+  </script>
+</body>
+
+</html>

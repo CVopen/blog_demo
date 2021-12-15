@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 500px;
+      height: 500px;
+      background-color: hotpink;
+      margin: 100px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      background-color: skyblue;
+      border: 1px blue;
+      height: 40px;
+      width: 80px;
+      border-radius: 5px;
+      box-shadow: 1px 2px 3px #000;
+    }
+
+    @keyframes changeOpacity {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal {
+      width: 300px;
+      height: 200px;
+      background-color: #fff;
+      box-shadow: 1px 1px 12px #000;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: changeOpacity .3s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button>see info</button>
+  </div>
+  <script>
+
+
+    ; (() => {
+      function closeModal() {
+        document.body.removeChild(document.getElementsByClassName('modal')[0])
+      }
+      function createModalBox() {
+        const div = document.createElement('div')
+        div.className = 'modal'
+        const h1 = document.createElement('h1')
+        h1.innerHTML = 'hello Singleton'
+        const button = document.createElement('button')
+        button.innerHTML = 'close'
+        button.onclick = function () {
+          document.body.removeChild(div)
+        }
+
+        div.appendChild(button)
+        div.appendChild(h1)
+        return div
+      }
+      const container = document.getElementsByClassName('container')[0]
+      const button = container.getElementsByTagName('button')[0]
+
+      button.onclick = function () {
+        document.body.appendChild(createModalBox())
+      }
+    })()
+  </script>
+</body>
+
+</html>

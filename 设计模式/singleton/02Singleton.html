@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    const input = (function () {
+      return document.createElement('input')
+    })()
+
+    function createInput() {
+      return document.createElement('input')
+    }
+
+    // const createInputLazy = (function () {
+    //   let input = null
+    //   return function () {
+    //     if (!input) {
+    //       input = document.createElement('input')
+    //     }
+    //     return input
+    //   }
+    // })()
+    const createInputLazy = (function () {
+      let input = null
+      return function (fn) {
+        return input || fn()
+      }
+    })()
+    console.log(createInput(), input, createInputLazy())
+  </script>
+</body>
+
+</html>
