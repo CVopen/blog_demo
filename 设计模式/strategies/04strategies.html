@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <span>请输入商品价格：</span>
+    <input class="price" type="text">
+  </div>
+  <div>
+    <span>请输入商品数量：</span>
+    <input class="count" type="text">
+  </div>
+  <button>calculate</button>
+  <script>
+    ; (function () {
+      const btn = document.getElementsByTagName('button')[0]
+      const price = document.getElementsByClassName('price')[0]
+      const count = document.getElementsByClassName('count')[0]
+
+      const method = {
+        1: price => price,
+        2: price => price * 2 * .95
+      }
+      btn.onclick = function () {
+        alert(method[count.value](price.value))
+      }
+
+    })()
+  </script>
+</body>
+
+</html>

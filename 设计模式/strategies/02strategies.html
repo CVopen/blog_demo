@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <span>请输入商品价格：</span>
+    <input class="price" type="text">
+  </div>
+  <div>
+    <span>请输入商品数量：</span>
+    <input class="count" type="text">
+  </div>
+  <button>calculate</button>
+  <script>
+    ; (function () {
+      const btn = document.getElementsByTagName('button')[0]
+      const price = document.getElementsByClassName('price')[0]
+      const count = document.getElementsByClassName('count')[0]
+
+      function calculateOwn(price) {
+        return price
+      }
+
+      function calculateTwo(price) {
+        return price * 2 * .95
+      }
+
+      function calculateThree(price) {
+        return price * 3 * .9
+      }
+
+      function calculateFour(price) {
+        return price * 4 * .8
+      }
+
+      function calculateFive(price) {
+        return price * 5 * .7
+      }
+
+      btn.onclick = function () {
+        if (count.value == 1) {
+          alert(calculateOwn(price.value))
+        }
+        if (count.value == 2) {
+          alert(calculateTwo(price.value))
+        }
+        if (count.value == 3) {
+          alert(calculateThree(price.value))
+        }
+        if (count.value == 4) {
+          alert(calculateFour(price.value))
+        }
+        if (count.value == 5) {
+          alert(calculateFive(price.value))
+        }
+      }
+    })()
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 600px;
+      height: 600px;
+      background-color: hotpink;
+      position: relative;
+    }
+
+    .slider {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: yellow;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="slider" style="top: 0px;left: 0px;"></div>
+  </div>
+
+  <script>
+    ; (function () {
+      const box = document.getElementsByClassName('container')[0]
+      const slider = document.getElementsByClassName('slider')[0]
+      const { clientWidth, clientHeight } = box
+      let direction = null
+      let timer = null
+      const speed = 3
+
+      const method = {
+        left() {
+          timer = setInterval(() => {
+            let left = parseInt(slider.style.left) - speed
+            if (left <= 0) {
+              left = 0
+              clearInterval(timer)
+              timer = null
+            }
+            slider.style.left = left + 'px'
+          }, 1000 / 60)
+        },
+        top() {
+          timer = setInterval(() => {
+            let top = parseInt(slider.style.top) - speed
+            if (top <= 0) {
+              top = 0
+              clearInterval(timer)
+              timer = null
+            }
+            slider.style.top = top + 'px'
+          }, 1000 / 60)
+        },
+        right() {
+          timer = setInterval(() => {
+            let left = parseInt(slider.style.left) + speed
+            if (left > clientWidth - 20) {
+              left = 600 - 20
+              clearInterval(timer)
+              timer = null
+            }
+            slider.style.left = left + 'px'
+          }, 1000 / 60)
+        },
+        bottom() {
+          timer = setInterval(() => {
+            let top = parseInt(slider.style.top) + speed
+            if (top > clientHeight - 20) {
+              top = 600 - 20
+              clearInterval(timer)
+              timer = null
+            }
+            slider.style.top = top + 'px'
+          }, 1000 / 60)
+        }
+      }
+
+      const moveHandle = function (e) {
+        let methodName = null
+        switch (e.keyCode) {
+          case 37:
+            methodName = 'left'
+            break;
+          case 38:
+            methodName = 'top'
+            break;
+          case 39:
+            methodName = 'right'
+            break;
+          case 40:
+            methodName = 'bottom'
+            break;
+          default:
+            return
+        }
+        if (direction === methodName) return
+        direction = methodName
+        clearInterval(timer)
+        timer = null
+        method[methodName]()
+      }
+      window.addEventListener('keydown', moveHandle)
+    })()
+  </script>
+</body>
+
+</html>
