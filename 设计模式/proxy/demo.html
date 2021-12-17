@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      width: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      const image = (function () {
+        const imgNode = document.createElement('img')
+        document.body.appendChild(imgNode)
+
+        const setSrc = src => {
+          imgNode.src = src
+        }
+        return { setSrc }
+      })()
+
+      const proxyImage = (function () {
+        const img = new Image()
+        img.onload = function () {
+          image.setSrc(this.src)
+        }
+
+        const setSrc = src => {
+          img.src = src
+          image.setSrc('./loading.gif')
+        }
+        return { setSrc }
+      })()
+
+      proxyImage.setSrc('https://s1.ax1x.com/2020/06/29/NWtFJA.jpg')
+    })()
+  </script>
+</body>
+
+</html>

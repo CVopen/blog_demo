@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      const Demand = function () { }
+      const client = {
+        setDemand(target) {
+          const demand = new Demand()
+          console.log('我需要一个新功能')
+          target.forward(demand)
+        }
+      }
+
+      const product = {
+        forward(demand) {
+          if (!dev.listener()) {
+            return console.log('需求不合理')
+          }
+          console.log('收到')
+          dev.coding(demand)
+        }
+      }
+
+      const dev = {
+        coding(demand) {
+          console.log('收到需求开始开发', demand)
+        },
+        listener() {
+          const random = Math.random()
+          if (random > 0.5) return true
+        }
+      }
+      client.setDemand(product)
+    })()
+  </script>
+</body>
+
+</html>
