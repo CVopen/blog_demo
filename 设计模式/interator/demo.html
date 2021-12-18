@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      function getData(data) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(data)
+          }, 1000);
+        })
+      }
+      function* GeneratorHttp(count) {
+        for (let index = 0; index < count; index++) {
+          yield getData(index)
+        }
+      }
+
+      function next(arr) {
+        const status = arr.next()
+        !status.done && status.value.then(res => {
+          console.log(`我是第${res}个请求`, new Date())
+          next(arr)
+        })
+      }
+      next(GeneratorHttp(10))
+    })()
+  </script>
+</body>
+
+</html>

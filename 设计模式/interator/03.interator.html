@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      const arr = [1, 2, 3, 4, 5, 6]
+      Array.prototype.each = function (cb) {
+        for (let index = 0; index < this.length; index++) {
+          cb(this[index], index)
+        }
+      }
+      arr.each((item, index) => {
+        console.log(item, index)
+      })
+
+      function compare(arr1, arr2) {
+        if (arr1.length !== arr2.length) {
+          throw new Error('不相等')
+        }
+        arr1.each((item, index) => {
+          if (item !== arr2[index]) {
+            throw new Error('不相等')
+          }
+        })
+        console.log('相等')
+      }
+
+      compare(arr, arr)
+    })()
+  </script>
+</body>
+
+</html>

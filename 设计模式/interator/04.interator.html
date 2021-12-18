@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      function interator(obj) {
+        let current = 0
+        const isDone = () => {
+          return current >= obj.length
+        }
+        const next = () => {
+          current += 1
+          return { value: obj[current - 1], done: isDone() }
+        }
+        return { next }
+      }
+
+      function compare(arr1, arr2) {
+        const status1 = arr1.next()
+        const status2 = arr2.next()
+        console.log(status1, status2)
+        if (status1.value !== status2.value) {
+          throw new Error('不相等')
+        }
+        if (!status1.done || !status2.done) {
+          return compare(arr1, arr2)
+        }
+        console.log('相等')
+      }
+      const iterator1 = interator([1, 2, 3, 4, 5, 6, 7])
+      const iterator2 = interator([1, 2, 3, 4, 5, 6])
+      compare(iterator1, iterator2)
+    })()
+  </script>
+</body>
+
+</html>
