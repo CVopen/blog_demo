@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      const shop = {
+        clientList: [],
+        listen(fn) {
+          this.clientList.push(fn)
+        },
+        remove(fn) {
+          const index = this.clientList.findIndex(item => item === fn)
+          if (index === -1) {
+            return false
+          }
+          this.clientList.splice(index, 1)
+        },
+        notice() {
+          this.clientList.forEach(fn => fn(arguments))
+        }
+      }
+      const client1 = () => {
+        console.log('client1')
+      }
+      const client2 = () => {
+        console.log('client2')
+      }
+      shop.listen(client1)
+      shop.listen(client2)
+      shop.notice()
+      shop.remove(client1)
+    })()
+  </script>
+</body>
+
+</html>

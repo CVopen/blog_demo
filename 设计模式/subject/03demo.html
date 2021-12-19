@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      const event = {
+        clientList: {},
+        listen(key, fn) {
+          if (!this.clientList[key]) {
+            this.clientList[key] = []
+          }
+          this.clientList[key].push(fn)
+        },
+        remove(key, fn) {
+          if (!this.clientList[key]) {
+            return false
+          }
+          const index = this.clientList[key].findIndex(item => item === fn)
+          if (index === -1) {
+            return false
+          }
+          this.clientList[key].splice(index, 1)
+        },
+        notice(key, ...args) {
+          if (!this.clientList[key]) {
+            return false
+          }
+          this.clientList[key].forEach(fn => fn(...args))
+        }
+      }
+      const orange = (args) => {
+        console.log('orange', args)
+      }
+      const apple = (args) => {
+        console.log('apple', args)
+      }
+
+      function installEvent(obj) {
+        for (const key in event) {
+          if (typeof event[key] === 'function') {
+            obj[key] = event[key]
+          } else {
+            obj[key] = {}
+          }
+        }
+      }
+      const shop = {}
+      installEvent(shop)
+      shop.listen('orange', orange)
+      shop.listen('apple', apple)
+      shop.notice('apple', 123)
+      shop.notice('orange')
+      shop.remove('orange', orange)
+    })()
+  </script>
+</body>
+
+</html>

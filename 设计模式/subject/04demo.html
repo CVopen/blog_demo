@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="login">
+    </div>
+    <div class="content">
+    </div>
+  </div>
+  <script src="./event.js"></script>
+  <script>
+    ; (function () {
+      const btn = document.getElementsByTagName('button')[0]
+      const inputs = document.getElementsByTagName('input')
+      const login = document.getElementsByClassName('login')[0]
+      const content = document.getElementsByClassName('content')[0]
+
+      event.listen('login', loginForm)
+      event.listen('logout', logoutForm)
+
+        ; (function () {
+          event.notice('logout')
+        })()
+
+      function loginForm() {
+        createContent(arguments[0][0])
+        login.innerHTML = ''
+      }
+
+      function logoutForm() {
+        createLogin()
+        content.innerHTML = ''
+      }
+
+      function createLogin() {
+        const form = `
+          <p>
+            用户名: <input type="text">
+          </p>
+          <p>
+            密码: <input type="password">
+          </p>
+        `
+        login.innerHTML = form
+        const button = document.createElement('button')
+        button.innerHTML = 'login'
+        button.onclick = () => {
+          const values = Array.from(inputs).map(el => el.value)
+          event.notice('login', values)
+        }
+        login.appendChild(button)
+      }
+
+      function createContent(data) {
+        const detaile = `
+          <p>欢迎账号: ${data}登录我们的网站</p>
+        `
+        content.innerHTML = detaile
+        const button = document.createElement('button')
+        button.innerHTML = 'logout'
+        button.onclick = () => {
+          event.notice('logout')
+        }
+        content.appendChild(button)
+      }
+    })()
+
+  </script>
+</body>
+
+</html>
