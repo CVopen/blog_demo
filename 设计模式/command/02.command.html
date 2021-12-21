@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button class="user1">user1-send</button>
+  <button class="user2">user2-send</button>
+  <script>
+    ; (function () {
+      const user1 = document.getElementsByClassName('user1')[0]
+      const user2 = document.getElementsByClassName('user2')[0]
+      let command = null
+
+      const order = {
+        addOrder() {
+          console.log('寄快递')
+        },
+        removeOrder() {
+          console.log('我不寄了')
+        }
+      }
+
+      function orderCommand(order) {
+        return {
+          execute() {
+            order.addOrder()
+          },
+          undo() {
+            order.removeOrder()
+          }
+        }
+      }
+
+      user1.onclick = () => {
+        command = orderCommand(order)
+        command.execute()
+      }
+      user2.onclick = () => {
+        command.undo()
+      }
+    })()
+  </script>
+</body>
+
+</html>
