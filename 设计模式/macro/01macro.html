@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>小爱同学</button>
+  <script>
+    ; (function () {
+      const btn = document.getElementsByTagName('button')[0]
+
+      const MacroCommand = function () {
+        return {
+          commandsList: [],
+          add(command) {
+            this.commandsList.push(command)
+          },
+          execute() {
+            this.commandsList.forEach(command => {
+              command.execute()
+            })
+          }
+        }
+      }
+
+      const openAcCommand = {
+        execute() {
+          console.log('打开空调')
+        }
+      }
+
+      const openTvCommand = {
+        execute() {
+          console.log('打开电视')
+        }
+      }
+
+      const openDoorCommand = {
+        execute() {
+          console.log('打开门')
+        }
+      }
+
+      const openPcCommand = {
+        execute() {
+          console.log('打开电脑')
+        }
+      }
+
+      const openWinCommand = {
+        execute() {
+          console.log('打开窗帘')
+        }
+      }
+
+      const macro = MacroCommand()
+      macro.add(openDoorCommand)
+      macro.add(openWinCommand)
+      macro.add(openTvCommand)
+      const macro2 = MacroCommand()
+      macro2.add(openAcCommand)
+      macro2.add(openPcCommand)
+      macro.add(macro2)
+
+      btn.onclick = function () {
+        macro.execute()
+      }
+    })()
+  </script>
+</body>
+
+</html>
