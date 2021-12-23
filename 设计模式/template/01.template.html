@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      function Template() { }
+      Template.prototype.water = function () {
+        console.log('烧水')
+      }
+      Template.prototype.bubble = function () { }
+      Template.prototype.addCondiment = function () { }
+      Template.prototype.init = function () {
+        this.water()
+        this.bubble()
+        this.addCondiment()
+      }
+
+      function Coffee() { }
+      Coffee.prototype = new Template()
+      Template.prototype.bubble = function () {
+        console.log('泡咖啡')
+      }
+      Template.prototype.addCondiment = function () {
+        console.log('加糖和奶')
+      }
+      const coffee = new Coffee()
+      coffee.init()
+
+      function Tea() { }
+      Tea.prototype = new Template()
+      Tea.prototype.bubble = function () {
+        console.log('泡茶')
+      }
+      Tea.prototype.addCondiment = function () {
+        console.log('加柠檬')
+      }
+      const tea = new Tea()
+      tea.init()
+    })()
+  </script>
+</body>
+
+</html>
