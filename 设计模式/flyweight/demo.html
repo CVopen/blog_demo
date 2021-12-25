@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      width: 100px;
+      margin-right: 10px;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <button>添加狗狗</button>
+  <button>添加猫猫</button>
+  <div class="container"></div>
+  <script>
+    ; (function () {
+      const container = document.getElementsByClassName('container')[0]
+      class Http {
+        constructor(method, cb) {
+          if (Http.intance) {
+            return Http.intance
+          }
+          this.method = method
+          this.cb = cb
+          this.init()
+          Http.intance = this
+        }
+        init() {
+          this.XML = new XMLHttpRequest()
+          const self = this
+          this.XML.onreadystatechange = function () {
+            if (this.readyState == 4) {
+              self.cb(this.response)
+            }
+          }
+        }
+        get(url) {
+          this.XML.open(this.method, url, true)
+          this.XML.send()
+        }
+      }
+
+      const createImg = () => {
+        return document.createElement('img')
+      }
+
+      function callBack(res) {
+        res = JSON.parse(res)
+
+        if (Array.isArray(res)) {
+          const fragment = document.createDocumentFragment()
+          res.forEach(item => {
+            const img = createImg()
+            img.src = item.url
+            fragment.appendChild(img)
+          })
+          container.appendChild(fragment)
+        } else {
+          const img = createImg()
+          img.src = res.message
+          container.appendChild(img)
+        }
+      }
+
+      const btns = document.getElementsByTagName('button')
+      btns[0].onclick = function () {
+        const http = new Http('get', callBack)
+        http.get('https://dog.ceo/api/breeds/image/random')
+      }
+
+      btns[1].onclick = function () {
+        const http = new Http('get', callBack)
+        http.get('https://api.thecatapi.com/v1/images/search?limit=10')
+      }
+    })()
+  </script>
+</body>
+
+</html>
