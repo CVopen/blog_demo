@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+
+      function chain(fn, next) {
+        return {
+          fn,
+          next
+        }
+      }
+      function order500(orderType, pay, stock) {
+        if (orderType === 1 && pay) {
+          console.log('定金500，优惠券100')
+          return true
+        }
+      }
+      function order200(orderType, pay, stock) {
+        if (orderType === 2 && pay) {
+          console.log('定金200，优惠券50')
+          return true
+        }
+      }
+      function orderNormal(orderType, pay, stock) {
+        if (stock > 0) {
+          console.log('普通订单')
+        } else {
+          console.log('库存不足')
+        }
+      }
+
+      function createOrder() {
+        const chainOrderNormal = chain(orderNormal)
+        const chainOrder200 = chain(order200)
+        const chainOrder500 = chain(order500)
+        chainOrder200.next = chainOrderNormal
+        chainOrder500.next = chainOrder200
+        return chainOrder500
+      }
+
+      function order(orderType, pay, stock, { fn, next }) {
+        const result = fn(orderType, pay, stock)
+        if (!result && next) {
+          order(orderType, pay, stock, next)
+        }
+      }
+      order(1, true, 500, chainOrder500) // 定金500，优惠券100
+      order(1, false, 500, chainOrder500)  // 普通订单
+      order(2, true, 200, chainOrder500)  // 定金200，优惠券50
+      order(3, false, 200, chainOrder500)  // 普通订单
+      order(3, false, 0, chainOrder500)  // 库存不足
+    })()
+  </script>
+</body>
+
+</html>

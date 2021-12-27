@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      function order500(orderType, pay, stock) {
+        if (orderType === 1 && pay) {
+          console.log('定金500，优惠券100')
+        } else {
+          order200(...arguments)
+        }
+      }
+      function order200(orderType, pay, stock) {
+        if (orderType === 2 && pay) {
+          console.log('定金200，优惠券50')
+        } else {
+          orderNormal(...arguments)
+        }
+      }
+      function orderNormal(orderType, pay, stock) {
+        if (stock > 0) {
+          console.log('普通订单')
+        } else {
+          console.log('库存不足')
+        }
+      }
+
+      order500(1, true, 500) // 定金500，优惠券100
+      order500(1, false, 500) // 普通订单
+      order500(2, true, 200) // 定金200，优惠券50
+      order500(3, false, 200) // 普通订单
+      order500(3, false, 0) // 库存不足
+    })()
+  </script>
+</body>
+
+</html>
