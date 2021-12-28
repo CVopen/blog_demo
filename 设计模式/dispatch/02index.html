@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    ; (function () {
+      class User {
+        constructor(name) {
+          this.name = name;
+        }
+        getName() {
+          return this.name
+        }
+        receive(name, message) {
+          console.log(`我是${this.name}, ${name}对您说${message}`)
+        }
+        send(message) {
+          room.send(this, message)
+        }
+      }
+
+      class Dispatch {
+        constructor() {
+          this.users = []
+        }
+        push() {
+          this.users.push(...arguments)
+        }
+        send(user, message) {
+          this.users.forEach(u => {
+            if (u !== user) {
+              u.receive(user.getName(), message)
+            }
+          })
+        }
+      }
+
+      const room = new Dispatch()
+
+      const ming = new User("小明")
+      const hong = new User("小红")
+      const lv = new User("小绿")
+
+      room.push(ming, hong, lv)
+
+      ming.send('111')
+      hong.send('222')
+      lv.send('333')
+    })()
+  </script>
+</body>
+
+</html>
